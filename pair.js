@@ -20,6 +20,7 @@ function removeFile(FilePath) {
 
 router.get("/", async (req, res) => {
   let num = req.query.number;
+
   async function RobinPair() {
     const { state, saveCreds } = await useMultiFileAuthState(`./session`);
     try {
@@ -51,9 +52,15 @@ router.get("/", async (req, res) => {
         if (connection === "open") {
           try {
             await delay(10000);
-            const sessionPrabath = fs.readFileSync("./session/creds.json");
-
             const auth_path = "./session/";
+            const credsFilePath = `${auth_path}creds.json`;
+
+            // Check if creds.json exists before proceeding
+            if (!fs.existsSync(credsFilePath)) {
+              console.error("creds.json file not found!");
+              throw new Error("Session credentials file is missing.");
+            }
+
             const user_jid = jidNormalizedUser(RobinPairWeb.user.id);
 
             function randomMegaId(length = 6, numberLength = 4) {
@@ -71,35 +78,34 @@ router.get("/", async (req, res) => {
               return `${result}${number}`;
             }
 
-            const mega_url = await upload(
-              fs.createReadStream(auth_path + "creds.json"),
-              `${randomMegaId()}.json`
-            );
+            // Upload the file and handle the stream properly
+            const fileStream = fs.createReadStream(credsFilePath);
+            const mega_url = await upload(fileStream, `${randomMegaId()}.json`);
 
             const string_session = mega_url.replace(
               "https://mega.nz/file/",
               ""
             );
-age
-            const sid = `*❄️Frozen-queen❄️*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/94702560019*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/HKMNXvMj0LPF3JF5whkcr6*`;
+            const sid = `*❄️Frozen-queen❄️*\n\n👉 ${string_session} 👈\n\n*This is your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/94702560019*\n\n*You can join my WhatsApp group*\n\n*https://chat.whatsapp.com/HKMNXvMj0LPF3JF5whkcr6*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
-            const dt = await RobinPairWeb.sendMessage(user_jid, {
+
+            await RobinPairWeb.sendMessage(user_jid, {
               image: {
                 url: "https://telegra.ph/file/c1737376abe4978d2c556.jpg",
               },
               caption: sid,
             });
-            const msg = await RobinPairWeb.sendMessage(user_jid, {
-              text: string_session,
-            });
-            const msg1 = await RobinPairWeb.sendMessage(user_jid, { text: mg });
+            await RobinPairWeb.sendMessage(user_jid, { text: string_session });
+            await RobinPairWeb.sendMessage(user_jid, { text: mg });
+
+            // Clean up after successful upload
+            await delay(100);
+            await removeFile("./session");
+            process.exit(0);
           } catch (e) {
+            console.error("Error during upload or messaging:", e);
             exec("pm2 restart prabath");
           }
-
-          await delay(100);
-          return await removeFile("./session");
-          process.exit(0);
         } else if (
           connection === "close" &&
           lastDisconnect &&
@@ -111,9 +117,8 @@ age
         }
       });
     } catch (err) {
+      console.error("Error in RobinPair:", err);
       exec("pm2 restart Robin-md");
-      console.log("service restarted");
-      RobinPair();
       await removeFile("./session");
       if (!res.headersSent) {
         await res.send({ code: "Service Unavailable" });
