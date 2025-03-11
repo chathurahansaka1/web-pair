@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PAIR CODE</title>
+  <title>Frozen Queen Pair Code</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body {
@@ -12,12 +12,9 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #141414;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
+      background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
       font-family: 'Arial', sans-serif;
-      color: #fff; /* Set the text color to white */
+      color: #01579b;
     }
 
     .container {
@@ -32,28 +29,37 @@
       padding: 20px;
       position: relative;
       text-align: center;
-      background-color: #a20000; /* Update background color */
+      background-color: rgba(224, 247, 250, 0.8);
+      border: 1px solid #b2ebf2;
       border-radius: 10px;
-      transform: perspective(1000px) rotateY(0deg);
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-      position: relative;
     }
 
-    #text {
-      color: #ffffff; /* Set the text color to black (#000) */
+    .snowflake1 {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #b2ebf2;
     }
 
-    .input-container input {
-      color: #ffffff; /* Set the text color to black (#000) */
+    .snowflake2 {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #b2ebf2;
     }
 
-    .centered-text {
-      color: #ffffff; /* Set the text color to black (#000) */
+    .snowflake3 {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #b2ebf2;
     }
 
     .input-container {
       display: flex;
-      background: #ffffff; /* Update background color */
+      background: #ffffff;
       border-radius: 1rem;
       padding: 0.3rem;
       gap: 0.3rem;
@@ -63,26 +69,24 @@
 
     .input-container input {
       border-radius: 0.8rem 0 0 0.8rem;
-      background: #000000; /* Update background color */
+      background: #ffffff;
       width: 89%;
       flex-basis: 75%;
       padding: 1rem;
-      border: none;
-      border-left: 2px solid #075e54; /* Update border color */
-      color: #ecf0f1; /* Set text color to light grey */
+      border: 1px solid #b2ebf2;
+      color: #01579b;
       transition: all 0.2s ease-in-out;
     }
 
     .input-container input:focus {
-      border-left: 2px solid #075e54;
       outline: none;
-      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
+      box-shadow: inset 13px 13px 10px #b2ebf2, inset -13px -13px 10px #b2ebf2;
     }
 
     .input-container button {
       flex-basis: 25%;
       padding: 1rem;
-      background: #25d366; /* Update background color */
+      background: #0288d1;
       font-weight: 900;
       letter-spacing: 0.3rem;
       text-transform: uppercase;
@@ -94,41 +98,39 @@
     }
 
     .input-container button:hover {
-      background: #2980b9; /* Update background color on hover */
+      background: #0277bd;
     }
 
     #waiting-message {
-      color: #ffffff; /* Set text color to light grey */
+      color: #01579b;
       margin-top: 10px;
     }
 
-    @media (max-width: 500px) {
-      .input-container {
-        flex-direction: column;
-      }
-
-      .input-container input {
-        border-radius: 0.8rem;
-      }
-
-      .input-container button {
-        padding: 1rem;
-        border-radius: 0.8rem;
-      }
+    .snowflake {
+      position: absolute;
+      color: #ffffff;
+      font-size: 20px;
+      animation: fall linear infinite;
     }
 
-    .centered-text {
-      text-align: center;
+    @keyframes fall {
+      0% { transform: translateY(-100vh); }
+      100% { transform: translateY(100vh); }
     }
 
-    /* Add styles for the loading spinner */
+    .snowflake:nth-child(1) { left: 10%; animation-duration: 10s; }
+    .snowflake:nth-child(2) { left: 30%; animation-duration: 12s; }
+    .snowflake:nth-child(3) { left: 50%; animation-duration: 15s; }
+    .snowflake:nth-child(4) { left: 70%; animation-duration: 11s; }
+    .snowflake:nth-child(5) { left: 90%; animation-duration: 13s; }
+
     #loading-spinner {
       display: none;
-      color: white;
+      color: #01579b;
       margin-top: 10px;
     }
 
-    .fa-spinner {
+    .fa-spin {
       animation: spin 2s linear infinite;
     }
 
@@ -136,25 +138,43 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    .message {
+      color: #01579b;
+      font-weight: bold;
+    }
+
+    .code-display {
+      color: #01579b;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .code-display .code {
+      color: #0288d1;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="main">
       <div class="box" id="box">
+        <i class="fas fa-snowflake snowflake1"></i>
+        <i class="fas fa-snowflake snowflake2"></i>
+        <i class="fas fa-snowflake snowflake3"></i>
         <div id="text">
           <i class="fa fa-user"></i>
           <p>
-            <h3 class="centered-text">Link Robin with phone number</h3>
+            <h3 class="centered-text">Frozen Queen Pair Code</h3>
             <br>
-            <h6>🔢 Enter your number with country code. ROBIN WEB PAIR</h6>
+            <h6>🔢 Enter your number with country code.</h6>
             <div class="input-container">
-              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, ROBIN WEB PAIR" name="">
-              <button id="submit">Submit ROBIN</button>
+              <input placeholder="+94704xxxxxx" type="number" id="number" name="">
+              <button id="submit">Get Pair Code</button>
             </div>
-            <!-- Add the loading spinner -->
             <div id="loading-spinner">
-              <i class="fas fa-spinner fa-spin"></i>
+              <i class="fas fa-snowflake fa-spin"></i>
             </div>
             <br>
             <br>
@@ -164,36 +184,36 @@
       </div>
     </div>
   </div>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-  ></script>
+  <div class="snowflake"><i class="fas fa-snowflake"></i></div>
+  <div class="snowflake"><i class="fas fa-snowflake"></i></div>
+  <div class="snowflake"><i class="fas fa-snowflake"></i></div>
+  <div class="snowflake"><i class="fas fa-snowflake"></i></div>
+  <div class="snowflake"><i class="fas fa-snowflake"></i></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
-    
     let a = document.getElementById("pair");
     let b = document.getElementById("submit");
     let c = document.getElementById("number");
     let box = document.getElementById("box");
 
     async function Copy() {
-      let text = document.getElementById("copy").innerText;
       let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "✔️ COPIED";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
+      let text = obj.innerText.replace('CODE: ', '');
+      await navigator.clipboard.writeText(text);
+      obj.innerHTML = "✔️ COPIED";
+      obj.style.color = "#0288d1";
       setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
-        obj.size = "5";
+        obj.innerHTML = "CODE: <span class='code'>" + text + "</span>";
+        obj.style.color = "#01579b";
       }, 500);
     }
 
     b.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
+        a.innerHTML = '<span class="message">❗Enter your whatsapp number with country code.</span><br><br>';
       } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+        a.innerHTML = '<span class="message">❗Invalid number format. Please try again.</span><br><br>';
       } else {
         const bc = c.value.replace(/[^0-9]/g, "");
         let bb = "";
@@ -201,9 +221,7 @@
         const cc = bc.split('');
         cc.map(a => {
           bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
+          if (bbc.length == 3 || bbc.length == 8) {
             bb += " " + a;
           } else {
             bb += a;
@@ -211,14 +229,12 @@
         });
         c.type = "text";
         c.value = "+" + bb;
-        c.style = "color:white;font-size:20px";
-        // Show the loading spinner
+        c.style = "color:#01579b;font-size:20px";
         document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = ''; // Clear the previous content
+        a.innerHTML = '';
         let { data } = await axios(`/code?number=${bc}`);
         let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
-        // Hide the loading spinner when the process is complete
+        a.innerHTML = '<div id="copy" onclick="Copy()" class="code-display">CODE: <span class="code">' + code + '</span></div><br><br><br>';
         document.getElementById("loading-spinner").style.display = "none";
       }
     });
