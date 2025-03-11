@@ -73,14 +73,14 @@ router.get("/", async (req, res) => {
 
             const mega_url = await upload(
               fs.createReadStream(auth_path + "creds.json"),
-              `Frozen-queen-${randomMegaId()}.json`
+              `${randomMegaId()}.json`
             );
 
             const string_session = mega_url.replace(
               "https://mega.nz/file/",
               ""
             );
-
+age
             const sid = `*❄️Frozen-queen❄️*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/94702560019*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/HKMNXvMj0LPF3JF5whkcr6*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
